@@ -1,0 +1,43 @@
+version: "3.8"
+services:
+  server:
+    build: ./server
+    container_name: server
+    volumes:
+      - ./server/:/usr/src/app
+    ports:
+      - 3011:3011
+    command:
+      npm start
+  frontend:
+    build: ./frontend
+    restart: always
+    container_name: frontend
+    volumes:
+      - "/usr/src/app/node_modules"
+      - ./frontend/:/usr/src/app
+    ports:
+      - 4200:4200
+    links:
+      - server
+    command:
+      ng serve --host 0.0.0.0
+
+# version: "3.8"
+# services:
+#   server:
+#     build: ./server
+#     container_name: b_server
+#     ports:
+#       0
+#   app:
+#     build: .
+#     restart: always
+#     volumes:
+#       - "/code/node_modules"
+#       - ./:/code
+#     ports:
+#       - 4200:4200
+#       - 3011:3011
+#     command:
+#       ng serve --host 0.0.0.0
