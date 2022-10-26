@@ -1,6 +1,8 @@
 node_modules/
+.DS_Store
 lerna-debug.log
 npm-debug.log
 packages/*/lib
+packages/*/.DS_Store
 packages/frontend/.angular/cache
 .idea
