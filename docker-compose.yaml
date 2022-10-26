@@ -1,27 +1,28 @@
 version: "3.8"
 services:
   server:
-    build: ./server
+    build: ./packages/server
     container_name: server
     volumes:
-      - ./server/:/usr/src/app
+      - '/usr/src/app/node_modules'
+      - ./packages/server/:/usr/src/app/packages/server
     ports:
       - 3011:3011
     command:
-      npm start
+      npm --prefix packages/server start
   frontend:
-    build: ./frontend
+    build: ./packages/frontend
     restart: always
     container_name: frontend
     volumes:
       - "/usr/src/app/node_modules"
-      - ./frontend/:/usr/src/app
+      - ./packages/frontend/:/usr/src/app/packages/frontend
     ports:
       - 4200:4200
     links:
       - server
     command:
-      ng serve --host 0.0.0.0
+      npm --prefix packages/frontend start
 
 # version: "3.8"
 # services:
